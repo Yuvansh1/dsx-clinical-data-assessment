@@ -25,6 +25,20 @@ htmlcov/
 .env
 .env.*
 !.env.example
+.Renviron
+.Renviron.*
+!.Renviron.example
+/.aws/
+/.ssh/
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Local agent configuration and review notes
+/.codex/
+/.agents/
+/VALIDATION.md
 
 # Build and submission archives
 *.tar.gz

@@ -2,6 +2,8 @@ if (dir.exists(".Rlibrary")) .libPaths(c(normalizePath(".Rlibrary"), .libPaths()
 dir.create("outputs", showWarnings = FALSE)
 dir.create("data", showWarnings = FALSE)
 options(dplyr.summarise.inform = FALSE)
+# One-off HTML reports do not need a persistent cache in the user's profile.
+options(sass.cache = FALSE)
 Sys.setenv(TZ = "UTC")
 library(dplyr)
 complete_date <- function(x) {

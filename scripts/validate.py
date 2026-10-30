@@ -36,7 +36,10 @@ def main():
     run("r-package-build", [r, "CMD", "build", "--no-build-vignettes", "question_1/descriptive_stats"])
     run("r-package-check", [r, "CMD", "check", "--no-manual", "--no-vignettes",
                              "--no-build-vignettes", "descriptiveStats_1.0.0.tar.gz"])
-    run("python-tests", [sys.executable, "-m", "pytest", "-q", "--basetemp=.tools/validation-temp"])
+    # The log directory already exists, including on a fresh checkout without .tools.
+    run("python-tests", [sys.executable, "-m", "pytest", "-q",
+                         f"--basetemp={out / 'pytest-temp'}",
+                         "-o", f"cache_dir={out / 'pytest-cache'}"])
     run("api-smoke", [sys.executable, "-m", "scripts.smoke_api"])
     run("assistant-examples", [sys.executable, "-m", "question_6_genai.agent", "--mode", "mock"])
     print(f"All checks passed. Logs: {out}")
