@@ -1,4 +1,4 @@
-# Clinical data assessment: complete solution
+# DSX Clinical data assessment: complete solution
 
 All six questions are implemented. Generated datasets, HTML tables and PNG charts
 are included in `outputs/`. No watermarks, logos or promotional footers are added.
@@ -18,20 +18,7 @@ Rscript scripts/install_packages.R
 Rscript scripts/run_all.R
 Rscript scripts/check_package.R
 & "C:\Program Files\R\R-<version>\bin\R.exe" CMD INSTALL question_1/descriptive_stats
-& "C:\Program Files\R\R-4.6.1\bin\R.exe" --vanilla #to start R in VS code powershell terminal
-
-#For testing question1:
-library(
-  descriptiveStats,
-  lib.loc = "C:/Users/dsx-clinical-data-assessment/.Rlibrary"
-)
-
-calc_mean(c(10, 20, 30)) #expected result: 20
-calc_median(c(10, 20, 30, 40)) #expected result: 25
-
-q(save = "no") #to close R session
-
-python -m pytest -q
+ python -m pytest -q
 python -m uvicorn question_5_api.main:app --reload
 ```
 
