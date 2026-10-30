@@ -4,6 +4,10 @@ This repository contains solutions to all six questions in the DSX assessment. I
 
 The examples use the public Pharmaverse datasets specified in the assessment. Generated datasets and reports are included in [outputs/](outputs/), so they can be inspected before installing R or Python.
 
+![Ten most frequent treatment-emergent adverse events, showing the percentage of safety subjects affected and 95% Wilson confidence intervals](outputs/ae_top10.png)
+
+The chart counts each subject once per event term across the 254-subject safety population. See Question 4 below for the reporting rules and supporting outputs.
+
 ## 1. Requirements and deliverables
 
 | Question | Implementation | Deliverables |
@@ -178,6 +182,17 @@ Mock mode replays three fixed responses in order, as permitted by the PDF. It de
 The default identifier in the code is `gpt-4.1-mini`; use `--model` to override it. The prompt sends the schema and question, not the clinical dataframe. Live service access was not tested. Mock mode meets the assessment's explicit alternative for candidates without an API key.
 
 ## 8. Validation
+
+### Automated checks on GitHub
+
+[The CI workflow](.github/workflows/ci.yml) runs on pushes and pull requests, and can also be started manually from the repository's Actions tab. It runs two jobs:
+
+- **Python:** install the locked dependencies, run the API and assistant tests, check the API against the included CSV, and execute the three mock assistant examples.
+- **R package:** install the package's dependencies, then build and check `descriptiveStats`, including its tests, documentation, and examples. Errors or warnings fail this job.
+
+The workflow needs no personal API key. It uses the included data for Python checks; the full clinical pipeline and report reconciliation remain part of the local validation command below. CI does not publish generated files or upload check artifacts. Its first hosted result will be available after the workflow is pushed to GitHub.
+
+### Full local validation
 
 Run `.venv\Scripts\python.exe scripts/validate.py` on Windows. It regenerates outputs, builds documentation, runs R and Python tests, checks the R package, exercises the API against the exported data, and runs the three assistant examples. Logs are saved in `outputs/validation/`.
 
