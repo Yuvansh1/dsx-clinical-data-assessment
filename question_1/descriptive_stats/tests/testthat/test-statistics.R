@@ -1,0 +1,31 @@
+test_that("the assessment vector has mathematically correct summaries", {
+  x <- c(1, 2, 2, 3, 4, 5, 5, 5, 6, 10)
+  expect_equal(calc_mean(x), 4.3)
+  expect_equal(calc_median(x), 4.5)
+  expect_equal(calc_mode(x), 5)
+  expect_equal(calc_q1(x), 2.25)
+  expect_equal(calc_q3(x), 5)
+  expect_equal(calc_iqr(x), 2.75)
+})
+test_that("ties and no-mode cases are explicit", {
+  expect_equal(calc_mode(c(2, 1, 2, 1)), c(1, 2))
+  expect_equal(calc_mode(c(1, 2, 3)), numeric())
+  expect_equal(calc_mode(7), numeric())
+  expect_equal(calc_mode(numeric()), numeric())
+})
+test_that("missing values, singleton and invalid inputs are handled", {
+  for (f in list(calc_mean, calc_median, calc_q1, calc_q3, calc_iqr)) {
+    expect_identical(f(numeric()), NA_real_)
+    expect_identical(f(c(NA_real_, NaN), na.rm = TRUE), NA_real_)
+    expect_identical(f(c(1, NA)), NA_real_)
+    expect_error(f("a"), "plain numeric vector")
+    expect_error(f(matrix(1:4, 2)), "plain numeric vector")
+    expect_error(f(Inf), "infinite")
+    expect_error(f(1, na.rm = NA), "TRUE or FALSE")
+  }
+  expect_equal(calc_mean(c(1, NA, 3), TRUE), 2)
+  expect_equal(calc_q1(8), 8)
+  expect_equal(calc_q3(8), 8)
+  expect_equal(calc_iqr(8), 0)
+  expect_equal(calc_mode(c(NA, 2, 2), TRUE), 2)
+})

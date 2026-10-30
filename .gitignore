@@ -1,0 +1,55 @@
+# Local runtimes and dependency libraries
+.venv/
+venv/
+.tools/
+.Rlibrary/
+
+# R session and IDE state
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+
+# Python bytecode, test caches and coverage
+__pycache__/
+*.py[cod]
+.pytest_cache/
+pytest-cache-files-*/
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# Local credentials (keep sanitized example configuration trackable)
+.env
+.env.*
+!.env.example
+
+# Build and submission archives
+*.tar.gz
+*.Rcheck/
+*.zip
+build/
+dist/
+*.egg-info/
+
+# Regenerated validation logs
+/outputs/validation/
+/outputs/api_smoke_results.json
+
+# Editor and operating-system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini
+*~
+*.swp
+
+# Input assessment and downloaded reference; not submission deliverables
+/attachment_*.pdf
+/disposition_reference.pdf
+
+# Keep data/, outputs/, documentation and dependency locks tracked:
+# these are intentional assessment deliverables.

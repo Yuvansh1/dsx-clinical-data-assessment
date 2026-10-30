@@ -1,0 +1,13 @@
+Package: descriptiveStats
+Title: Descriptive Statistics for Numeric Vectors
+Version: 1.0.0
+Authors@R: person("Assessment", "Contributor", role = c("aut", "cre"), email = "maintainer@example.com")
+Description: Small, documented functions for arithmetic mean, median, modes,
+    quartiles and interquartile range with explicit missing value semantics.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Depends: R (>= 4.2.0)
+Imports: stats
+Suggests: testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Config/roxygen2/version: 8.1.1
