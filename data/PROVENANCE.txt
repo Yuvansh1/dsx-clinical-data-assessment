@@ -1,0 +1,4 @@
+Source: pharmaversesdtm::ae joined to pharmaversesdtm::dm by USUBJID.
+Filename adae.csv follows the assessment; this is not a derived ADaM ADAE.
+Rows: 1191
+Subjects: 225
