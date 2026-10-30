@@ -1,4 +1,4 @@
-# DSX Clinical data assessment: complete solution
+# Clinical data assessment: complete solution
 
 All six questions are implemented. Generated datasets, HTML tables and PNG charts
 are included in `outputs/`. No watermarks, logos or promotional footers are added.
