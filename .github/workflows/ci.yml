@@ -73,3 +73,41 @@ jobs:
           build_args: 'c("--no-manual", "--no-build-vignettes")'
           error-on: '"warning"'
           upload-results: never
+
+  report-failure:
+    name: Open issue on CI failure
+    needs: [python, r-package]
+    if: ${{ failure() && github.event_name != 'pull_request' }}
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Create or update failure issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          WORKFLOW: ${{ github.workflow }}
+          BRANCH: ${{ github.ref_name }}
+          SHA: ${{ github.sha }}
+          ACTOR: ${{ github.actor }}
+        run: |
+          TITLE="CI failing on $BRANCH"
+          BODY="Workflow **$WORKFLOW** failed.
+
+          - Branch: \`$BRANCH\`
+          - Commit: $SHA
+          - Triggered by: $ACTOR
+          - Run: $RUN_URL"
+
+          gh label create ci-failure --color B60205 \
+            --description "Automated CI failure report" 2>/dev/null || true
+
+          EXISTING=$(gh issue list --label ci-failure --state open \
+            --search "in:title \"$TITLE\"" --json number --jq '.[0].number')
+
+          if [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --body "$BODY"
+          else
+            gh issue create --title "$TITLE" --label ci-failure --body "$BODY"
+          fi
