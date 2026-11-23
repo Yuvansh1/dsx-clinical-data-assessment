@@ -185,10 +185,12 @@ The default identifier in the code is `gpt-4.1-mini`; use `--model` to override 
 
 ### Automated checks on GitHub
 
-[The CI workflow](.github/workflows/ci.yml) runs on pushes and pull requests, and can also be started manually from the repository's Actions tab. It runs two jobs:
+[The CI workflow](.github/workflows/ci.yml) runs on pushes and pull requests, and can also be started manually from the repository's Actions tab. It runs two test jobs:
 
 - **Python:** install the locked dependencies, run the API and assistant tests, check the API against the included CSV, and execute the three mock assistant examples.
 - **R package:** install the package's dependencies, then build and check `descriptiveStats`, including its tests, documentation, and examples. Errors or warnings fail this job.
+
+If either job fails on a push or manual run, a third job opens a GitHub issue labelled `ci-failure` titled "CI failing on <branch>", with a link to the failed run. If an open issue for that branch already exists, it adds a comment to it instead of opening another. Pull request failures are reported only through the PR checks. Close the issue once the branch is green again.
 
 The workflow needs no personal API key. It uses the included data for Python checks; the full clinical pipeline and report reconciliation remain part of the local validation command below. CI does not publish generated files or upload check artifacts. Its first hosted result will be available after the workflow is pushed to GitHub.
 
